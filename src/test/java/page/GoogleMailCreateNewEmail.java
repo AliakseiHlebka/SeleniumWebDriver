@@ -3,16 +3,8 @@ package page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class GoogleMailCreateNewEmail {
-
-    private WebDriver driver;
-
-    public GoogleMailCreateNewEmail(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
+public class GoogleMailCreateNewEmail extends AbstractGoogleMailPage {
 
     @FindBy(id = ":9e")
     private WebElement emailAddresseeTextfield;
@@ -25,6 +17,13 @@ public class GoogleMailCreateNewEmail {
 
     @FindBy(xpath = "//div[text()='Отправить']")
     private WebElement sendEmailButton;
+
+    @FindBy(xpath = "//*[@id=':5x']")
+    private WebElement closeNewEmailButton;
+
+    public GoogleMailCreateNewEmail(WebDriver driver) {
+        super(driver);
+    }
 
     public GoogleMailCreateNewEmail enterEmailAddressee(String email) {
         emailAddresseeTextfield.sendKeys(email);
@@ -43,6 +42,11 @@ public class GoogleMailCreateNewEmail {
 
     public GoogleMailHomePage sendEmail() {
         sendEmailButton.click();
+        return new GoogleMailHomePage(driver);
+    }
+
+    public GoogleMailHomePage closeNewEmail() {
+        closeNewEmailButton.click();
         return new GoogleMailHomePage(driver);
     }
 }
