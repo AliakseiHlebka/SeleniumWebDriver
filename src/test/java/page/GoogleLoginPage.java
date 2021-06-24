@@ -3,10 +3,14 @@ package page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class GoogleLoginPage extends AbstractGoogleMailPage {
 
     private static final String HOMEPAGE_URL = "https://mail.google.com";
+    private static final String LOGIN = "tyrmandyr1@gmail.com";
+    private static final String PASSWORD = "@Tyrmandyr1!";
 
     @FindBy(id = "identifierId")
     private WebElement loginOrEmailTextfield;
@@ -24,27 +28,12 @@ public class GoogleLoginPage extends AbstractGoogleMailPage {
         super(driver);
     }
 
-    public GoogleLoginPage openPage() {
+    public GoogleMailHomePage loginToGoogleMail() {
         driver.get(HOMEPAGE_URL);
-        return this;
-    }
-
-    public GoogleLoginPage enterEmailOrPhone(String login) {
-        loginOrEmailTextfield.sendKeys(login);
-        return this;
-    }
-
-    public GoogleLoginPage confirmEmailOrPhone() {
+        loginOrEmailTextfield.sendKeys(LOGIN);
         confirmEmailOrPhoneButton.click();
-        return this;
-    }
-
-    public GoogleLoginPage enterPassword(String password) {
-        passwordTextField.sendKeys(password);
-        return this;
-    }
-
-    public GoogleMailHomePage confirmPassword() {
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(passwordTextField));
+        passwordTextField.sendKeys(PASSWORD);
         confirmPasswordButton.click();
         return new GoogleMailHomePage(driver);
     }

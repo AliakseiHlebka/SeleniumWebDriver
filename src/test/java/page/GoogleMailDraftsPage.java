@@ -6,25 +6,37 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class GoogleMailDraftsPage extends AbstractGoogleMailPage {
 
     public GoogleMailDraftsPage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy(xpath = "//*[@id=':c8']/div[1]/span")
-    private WebElement selectAllDraftEmailsCheckbox;
+    @FindBy(xpath = "//span[@class='bog']")
+    private List<WebElement> listOfDraftEmails;
 
-    @FindBy(xpath = "//*[@id=':4']/div[2]/div[1]/div[1]/div/div/div[2]/div/div")
-    private WebElement deleteAllDraftEmailsButton;
+    @FindBy(xpath = "//*[@id=':7m']/span")
+    private WebElement newEmailHeader;
 
-    public GoogleMailDraftsPage selectAllDraftEmails() {
-        selectAllDraftEmailsCheckbox.click();
-        new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(deleteAllDraftEmailsButton));
-        return new GoogleMailDraftsPage(driver);
+    @FindBy(xpath = "//*[@id=':8u']")
+    private WebElement deleteDraftEmailButton;
+
+    @FindBy(xpath = "//td[@class='TC']")
+    public WebElement noDraftEmailsMessage;
+
+    public void openDraftEmail(String text) {
+        for (WebElement email : listOfDraftEmails) {
+            if (email.getText().contains(text)) {
+                email.click();
+                break;
+            }
+        }
+        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(newEmailHeader));
     }
 
-    public void deleteAllDraftEmails() {
-        deleteAllDraftEmailsButton.click();
+    public void deleteDratEmail() {
+       deleteDraftEmailButton.click();
     }
 }

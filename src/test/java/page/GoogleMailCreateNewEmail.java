@@ -7,13 +7,13 @@ import org.openqa.selenium.support.FindBy;
 public class GoogleMailCreateNewEmail extends AbstractGoogleMailPage {
 
     @FindBy(id = ":9e")
-    private WebElement emailAddresseeTextfield;
+    private WebElement emailAddresseeTextField;
 
     @FindBy(id = ":8w")
-    private WebElement emailSubjectTextfield;
+    private WebElement emailSubjectTextField;
 
     @FindBy(id = ":a1")
-    private WebElement emailBodyTextfield;
+    private WebElement emailBodyTextField;
 
     @FindBy(xpath = "//div[text()='Отправить']")
     private WebElement sendEmailButton;
@@ -26,17 +26,17 @@ public class GoogleMailCreateNewEmail extends AbstractGoogleMailPage {
     }
 
     public GoogleMailCreateNewEmail enterEmailAddressee(String email) {
-        emailAddresseeTextfield.sendKeys(email);
+        emailAddresseeTextField.sendKeys(email);
         return this;
     }
 
     public GoogleMailCreateNewEmail enterEmailSubject(String subject) {
-        emailSubjectTextfield.sendKeys(subject);
+        emailSubjectTextField.sendKeys(subject);
         return this;
     }
 
     public GoogleMailCreateNewEmail enterEmailBody(String text) {
-        emailBodyTextfield.sendKeys(text);
+        emailBodyTextField.sendKeys(text);
         return this;
     }
 

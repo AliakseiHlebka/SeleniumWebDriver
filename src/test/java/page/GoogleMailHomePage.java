@@ -10,13 +10,13 @@ import java.util.List;
 
 public class GoogleMailHomePage extends AbstractGoogleMailPage {
 
-    @FindBy(xpath = "/html/body/div[7]/div[3]/div/div[2]/div[1]/div[1]/div[1]/div/div/div/div[1]/div/div")
+    @FindBy(xpath = "//*[@id=':3j']/div/div")
     private WebElement createNewEmailButton;
 
-    @FindBy(xpath = "/html/body/div[7]/div[3]/div/div[2]/div[1]/div[1]/div[1]/div/div/div/div[2]/div/div/div[1]/div[1]/div/div[4]/div/div/div[2]/span/a")
+    @FindBy(xpath = "//*[@id=':4b']/div")
     private WebElement sentEmailsFolderLink;
 
-    @FindBy(xpath = "/html/body/div[7]/div[3]/div/div[2]/div[1]/div[1]/div[1]/div/div/div/div[2]/div/div/div[1]/div[1]/div/div[5]/div/div/div[2]/span/a")
+    @FindBy(xpath = "//*[@id=':4d']/div")
     private WebElement draftsFolderLink;
 
     @FindBy(xpath = "//*[@id='gb']/div[2]/div[3]/div[1]/div[2]/div/a/img")
@@ -45,6 +45,8 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
 
     public GoogleMailSentEmailsPage openSentEmailsPage() {
         sentEmailsFolderLink.click();
+        new WebDriverWait(driver, 5)
+                .until(ExpectedConditions.urlMatches(new GoogleMailSentEmailsPage(driver).SENT_EMAILS_URL));
         return new GoogleMailSentEmailsPage(driver);
     }
 
@@ -53,10 +55,9 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
         return new GoogleMailDraftsPage(driver);
     }
 
-    public GoogleMailHomePage quitGoogleAccount() {
+    public void quitGoogleAccount() {
         googleAccountInfoButton.click();
         quitGoogleAccountButton.click();
-        return null;
     }
 
     public void openInboxEmail(String text) {

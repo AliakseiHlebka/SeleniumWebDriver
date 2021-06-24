@@ -8,8 +8,16 @@ import java.util.List;
 
 public class GoogleMailSentEmailsPage extends AbstractGoogleMailPage {
 
+    public final String SENT_EMAILS_URL = "https://mail.google.com/mail/u/0/#sent";
+
     @FindBy(xpath = "//span[@class='bog']")
     private List<WebElement> listOfSentEmails;
+
+    @FindBy(xpath = "//h2[@class='hP']")
+    public WebElement sentEmailSubject;
+
+    @FindBy(xpath = "//div[@class='a3s aiL ']")
+    public WebElement sentEmailBody;
 
     public GoogleMailSentEmailsPage(WebDriver driver) {
         super(driver);

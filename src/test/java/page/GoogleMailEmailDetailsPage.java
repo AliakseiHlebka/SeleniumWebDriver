@@ -21,6 +21,15 @@ public class GoogleMailEmailDetailsPage extends AbstractGoogleMailPage {
     @FindBy(xpath = "//div[@id=':cw']")
     private WebElement moveToInboxButton;
 
+    @FindBy(xpath = "/html/body/div[7]/div[3]/div/div[1]/div[4]/div[1]/div/div[3]/div/div/div[2]/span/span[1]")
+    public WebElement emailMovedToInboxPopup;
+
+    @FindBy(xpath = "//*[@id=':7m']/span")
+    public WebElement emailAddresseeTextField;
+
+    @FindBy(xpath = "//*[@id=':ak']")
+    public WebElement emailBodyTextField;
+
     public GoogleMailHomePage deleteEmail() {
         new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(deleteEmailButton));
         deleteEmailButton.click();
