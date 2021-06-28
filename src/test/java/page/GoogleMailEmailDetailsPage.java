@@ -8,27 +8,39 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class GoogleMailEmailDetailsPage extends AbstractGoogleMailPage {
 
+    @FindBy(xpath = "//*[@id=':4']/div[2]/div[1]/div/div[2]/div[3]")
+    private WebElement deleteEmailButton;
+
+    @FindBy(xpath = "//*[@id=':7i']")
+    private WebElement moveToFolderButton;
+
+    @FindBy(xpath = "//div[@id=':9a']")
+    private WebElement moveToInboxButton;
+
+    @FindBy(xpath = "//span[@class='bAq']")
+    private WebElement actionConfirmationPopup;
+
+    @FindBy(xpath = "//*[@id=':7m']/span")
+    private WebElement emailAddresseeTextField;
+
+    @FindBy(xpath = "//*[@id=':ak']")
+    private WebElement emailBodyTextField;
+
     public GoogleMailEmailDetailsPage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy(xpath = "//*[@id=':4']/div[2]/div[1]/div/div[2]/div[3]")
-    private WebElement deleteEmailButton;
+    public WebElement getActionConfirmationPopup() {
+        return actionConfirmationPopup;
+    }
 
-    @FindBy(xpath = "//*[@id=':au']/div[1]")
-    private WebElement moveToFolderButton;
+    public WebElement getEmailAddresseeTextField() {
+        return emailAddresseeTextField;
+    }
 
-    @FindBy(xpath = "//div[@id=':cw']")
-    private WebElement moveToInboxButton;
-
-    @FindBy(xpath = "/html/body/div[7]/div[3]/div/div[1]/div[4]/div[1]/div/div[3]/div/div/div[2]/span/span[1]")
-    public WebElement emailMovedToInboxPopup;
-
-    @FindBy(xpath = "//*[@id=':7m']/span")
-    public WebElement emailAddresseeTextField;
-
-    @FindBy(xpath = "//*[@id=':ak']")
-    public WebElement emailBodyTextField;
+    public WebElement getEmailBodyTextField() {
+        return emailBodyTextField;
+    }
 
     public GoogleMailHomePage deleteEmail() {
         new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(deleteEmailButton));
@@ -37,7 +49,7 @@ public class GoogleMailEmailDetailsPage extends AbstractGoogleMailPage {
     }
 
     public GoogleMailHomePage moveEmailFromTrashBinToInbox() {
-        new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(moveToFolderButton));
+        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(moveToFolderButton));
         moveToFolderButton.click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(moveToInboxButton));
         moveToInboxButton.click();

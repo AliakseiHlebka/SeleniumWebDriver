@@ -30,22 +30,31 @@ public class GoogleMailDeleteIncomingEmailAndRestoreToInboxTest {
     public void googleMailDeleteIncomingEmailAndRestoreToInboxTest() {
 
         final String GOOGLE_MAIL_URL = "https://mail.google.com/mail/u/0/#inbox";
-        String targetMessage = "Цепочка перемещена во входящие.";
+        String login = "tyrmandyr1@gmail.com";
+        String password = "@Tyrmandyr1!";
+        String deleteEmailTargetMessage = "Цепочка помещена в корзину";
+        String restoreEmailtargetMessage = "Цепочка перемещена во входящие.";
         String emailSender = "The Google team";
 
-        new GoogleLoginPage(driver).loginToGoogleMail();
+        new GoogleLoginPage(driver).loginToGoogleMail(login, password);
         new WebDriverWait(driver, 10).until(ExpectedConditions.urlMatches(GOOGLE_MAIL_URL));
 
-        new GoogleMailHomePage(driver).openInboxEmail(emailSender);
-        new GoogleMailEmailDetailsPage(driver).deleteEmail();
-        new GoogleMailHomePage(driver).openTrashBinPage();
+        GoogleMailHomePage homePage = new GoogleMailHomePage(driver);
+        GoogleMailEmailDetailsPage emailDetailsPage = new GoogleMailEmailDetailsPage(driver);
+        homePage.openInboxEmail(emailSender);
+        emailDetailsPage.deleteEmail();
+
+        Assert.assertTrue(emailDetailsPage.getActionConfirmationPopup()
+                .getText().contains(deleteEmailTargetMessage), "Email was not moved to trash bin!");
+
+        homePage.openTrashBinPage();
         new GoogleMailTrashBinPage(driver).openDeletedEmail();
-        new GoogleMailEmailDetailsPage(driver).moveEmailFromTrashBinToInbox();
+        emailDetailsPage.moveEmailFromTrashBinToInbox();
 
-        Assert.assertTrue(new GoogleMailEmailDetailsPage(driver).emailMovedToInboxPopup
-                .getText().contains(targetMessage), "Email was not moved to inbox!");
+        Assert.assertTrue(emailDetailsPage.getActionConfirmationPopup()
+                .getText().contains(restoreEmailtargetMessage), "Email was not moved to inbox!");
 
-        new GoogleMailHomePage(driver).quitGoogleAccount();
+        homePage.quitGoogleAccount();
     }
 
     @AfterMethod(alwaysRun = true)

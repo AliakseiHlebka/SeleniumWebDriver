@@ -12,7 +12,7 @@ public class GoogleMailTrashBinPage extends AbstractGoogleMailPage {
         super(driver);
     }
 
-    @FindBy(xpath = "//*[@id=':9u']/span/span")
+    @FindBy(xpath = "//tr[@class='zA yO']")
      private WebElement deletedEmail;
 
     public GoogleMailEmailDetailsPage openDeletedEmail() {

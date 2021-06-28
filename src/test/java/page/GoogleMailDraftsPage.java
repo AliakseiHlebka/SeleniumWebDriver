@@ -10,10 +10,6 @@ import java.util.List;
 
 public class GoogleMailDraftsPage extends AbstractGoogleMailPage {
 
-    public GoogleMailDraftsPage(WebDriver driver) {
-        super(driver);
-    }
-
     @FindBy(xpath = "//span[@class='bog']")
     private List<WebElement> listOfDraftEmails;
 
@@ -24,7 +20,15 @@ public class GoogleMailDraftsPage extends AbstractGoogleMailPage {
     private WebElement deleteDraftEmailButton;
 
     @FindBy(xpath = "//td[@class='TC']")
-    public WebElement noDraftEmailsMessage;
+    private WebElement noDraftEmailsMessage;
+
+    public GoogleMailDraftsPage(WebDriver driver) {
+        super(driver);
+    }
+
+    public WebElement getNoDraftEmailsMessage() {
+        return noDraftEmailsMessage;
+    }
 
     public void openDraftEmail(String text) {
         for (WebElement email : listOfDraftEmails) {

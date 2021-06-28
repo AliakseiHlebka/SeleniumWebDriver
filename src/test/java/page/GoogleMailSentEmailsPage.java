@@ -14,10 +14,18 @@ public class GoogleMailSentEmailsPage extends AbstractGoogleMailPage {
     private List<WebElement> listOfSentEmails;
 
     @FindBy(xpath = "//h2[@class='hP']")
-    public WebElement sentEmailSubject;
+    private WebElement sentEmailSubject;
 
     @FindBy(xpath = "//div[@class='a3s aiL ']")
-    public WebElement sentEmailBody;
+    private WebElement sentEmailBody;
+
+    public WebElement getSentEmailSubject() {
+        return sentEmailSubject;
+    }
+
+    public WebElement getSentEmailBody() {
+        return sentEmailBody;
+    }
 
     public GoogleMailSentEmailsPage(WebDriver driver) {
         super(driver);

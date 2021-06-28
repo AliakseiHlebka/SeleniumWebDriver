@@ -9,8 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class GoogleLoginPage extends AbstractGoogleMailPage {
 
     private static final String HOMEPAGE_URL = "https://mail.google.com";
-    private static final String LOGIN = "tyrmandyr1@gmail.com";
-    private static final String PASSWORD = "@Tyrmandyr1!";
 
     @FindBy(id = "identifierId")
     private WebElement loginOrEmailTextfield;
@@ -28,12 +26,12 @@ public class GoogleLoginPage extends AbstractGoogleMailPage {
         super(driver);
     }
 
-    public GoogleMailHomePage loginToGoogleMail() {
+    public GoogleMailHomePage loginToGoogleMail(String login, String password) {
         driver.get(HOMEPAGE_URL);
-        loginOrEmailTextfield.sendKeys(LOGIN);
+        loginOrEmailTextfield.sendKeys(login);
         confirmEmailOrPhoneButton.click();
         new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(passwordTextField));
-        passwordTextField.sendKeys(PASSWORD);
+        passwordTextField.sendKeys(password);
         confirmPasswordButton.click();
         return new GoogleMailHomePage(driver);
     }

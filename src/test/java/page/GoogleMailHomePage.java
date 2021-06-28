@@ -10,7 +10,7 @@ import java.util.List;
 
 public class GoogleMailHomePage extends AbstractGoogleMailPage {
 
-    @FindBy(xpath = "//*[@id=':3j']/div/div")
+    @FindBy(xpath = "//div[@class='T-I T-I-KE L3']")
     private WebElement createNewEmailButton;
 
     @FindBy(xpath = "//*[@id=':4b']/div")
@@ -28,10 +28,10 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
     @FindBy(xpath = "//span[@class='bA4']")
     private List<WebElement> listOfInboxEmails;
 
-    @FindBy(xpath = "//*[@id=':40']")
+    @FindBy(xpath = "//span[@class='J-Ke n4 ah9']")
     private WebElement expandMenuOptionsButton;
 
-    @FindBy(xpath = "//*[@id=':4g']")
+    @FindBy(xpath = "//div[@class='TN bzz aHS-bnx']")
     private WebElement trashBinFolderLink;
 
     public GoogleMailHomePage(WebDriver driver) {
