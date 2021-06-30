@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 
 public class GoogleMailTrashBinPage extends AbstractGoogleMailPage {
-    
+
     public static final String TRASH_BIN_URL = "https://mail.google.com/mail/u/0/#trash";
 
     @FindBy(xpath = "//tr[@class='zA yO']")

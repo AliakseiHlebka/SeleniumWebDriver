@@ -8,12 +8,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class GoogleMailEmailDetailsPage extends AbstractGoogleMailPage {
 
-    private WebDriverWait wait = new WebDriverWait(driver, 5);
+    private WebDriverWait wait = new WebDriverWait(driver, 10);
 
-    @FindBy(xpath = "//div[contains(@aria-label, 'Удалить черновик')]")
+    @FindBy(xpath = "(//div[@title='Удалить'])[2]")
     private WebElement deleteEmailButton;
 
-    @FindBy(xpath = "//div[@aria-label='Переместить в']")
+    @FindBy(xpath = "(//div[@title='Переместить в'])[3]")
     private WebElement moveToFolderButton;
 
     @FindBy(xpath = "//div[text()='Входящие']")
