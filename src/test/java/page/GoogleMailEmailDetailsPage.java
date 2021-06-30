@@ -8,22 +8,24 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class GoogleMailEmailDetailsPage extends AbstractGoogleMailPage {
 
-    @FindBy(xpath = "//*[@id=':4']/div[2]/div[1]/div/div[2]/div[3]")
+    private WebDriverWait wait = new WebDriverWait(driver, 5);
+
+    @FindBy(xpath = "//div[contains(@aria-label, 'Удалить черновик')]")
     private WebElement deleteEmailButton;
 
-    @FindBy(xpath = "//*[@id=':7i']")
+    @FindBy(xpath = "//div[@aria-label='Переместить в']")
     private WebElement moveToFolderButton;
 
-    @FindBy(xpath = "//div[@id=':9a']")
+    @FindBy(xpath = "//div[text()='Входящие']")
     private WebElement moveToInboxButton;
 
     @FindBy(xpath = "//span[@class='bAq']")
     private WebElement actionConfirmationPopup;
 
-    @FindBy(xpath = "//*[@id=':7m']/span")
+    @FindBy(xpath = "//*[@id=':7z']/span")
     private WebElement emailAddresseeTextField;
 
-    @FindBy(xpath = "//*[@id=':ak']")
+    @FindBy(xpath = "//div[@aria-label='Тело письма']")
     private WebElement emailBodyTextField;
 
     public GoogleMailEmailDetailsPage(WebDriver driver) {
@@ -43,15 +45,15 @@ public class GoogleMailEmailDetailsPage extends AbstractGoogleMailPage {
     }
 
     public GoogleMailHomePage deleteEmail() {
-        new WebDriverWait(driver, 10).until(ExpectedConditions.elementToBeClickable(deleteEmailButton));
+        wait.until(ExpectedConditions.visibilityOf(deleteEmailButton));
         deleteEmailButton.click();
         return new GoogleMailHomePage(driver);
     }
 
     public GoogleMailHomePage moveEmailFromTrashBinToInbox() {
-        new WebDriverWait(driver, 3).until(ExpectedConditions.visibilityOf(moveToFolderButton));
+        wait.until(ExpectedConditions.visibilityOf(moveToFolderButton));
         moveToFolderButton.click();
-        new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(moveToInboxButton));
+        wait.until(ExpectedConditions.elementToBeClickable(moveToInboxButton));
         moveToInboxButton.click();
         return new GoogleMailHomePage(driver);
     }

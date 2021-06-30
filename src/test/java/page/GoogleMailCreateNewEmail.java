@@ -6,19 +6,19 @@ import org.openqa.selenium.support.FindBy;
 
 public class GoogleMailCreateNewEmail extends AbstractGoogleMailPage {
 
-    @FindBy(id = ":9e")
+    @FindBy(xpath = "//textarea[@name='to']")
     private WebElement emailAddresseeTextField;
 
-    @FindBy(id = ":8w")
+    @FindBy(xpath = "//input[@name='subjectbox']")
     private WebElement emailSubjectTextField;
 
-    @FindBy(id = ":a1")
+    @FindBy(xpath = "//div[@aria-label='Тело письма']")
     private WebElement emailBodyTextField;
 
     @FindBy(xpath = "//div[text()='Отправить']")
     private WebElement sendEmailButton;
 
-    @FindBy(xpath = "//*[@id=':5x']")
+    @FindBy(xpath = "//img[@aria-label='Сохранить и закрыть']")
     private WebElement closeNewEmailButton;
 
     public GoogleMailCreateNewEmail(WebDriver driver) {

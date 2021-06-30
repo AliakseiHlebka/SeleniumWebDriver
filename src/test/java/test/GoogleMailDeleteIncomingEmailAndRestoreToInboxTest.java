@@ -13,7 +13,6 @@ import org.testng.annotations.Test;
 import page.GoogleLoginPage;
 import page.GoogleMailEmailDetailsPage;
 import page.GoogleMailHomePage;
-import page.GoogleMailTrashBinPage;
 
 public class GoogleMailDeleteIncomingEmailAndRestoreToInboxTest {
 
@@ -29,7 +28,7 @@ public class GoogleMailDeleteIncomingEmailAndRestoreToInboxTest {
     @Test(description = "Delete incoming email and restore it back to Inbox from Trash Bin")
     public void googleMailDeleteIncomingEmailAndRestoreToInboxTest() {
 
-        final String GOOGLE_MAIL_URL = "https://mail.google.com/mail/u/0/#inbox";
+        String googleMailUrl = "https://mail.google.com/mail/u/0/#inbox";
         String login = "tyrmandyr1@gmail.com";
         String password = "@Tyrmandyr1!";
         String deleteEmailTargetMessage = "Цепочка помещена в корзину";
@@ -37,19 +36,21 @@ public class GoogleMailDeleteIncomingEmailAndRestoreToInboxTest {
         String emailSender = "The Google team";
 
         new GoogleLoginPage(driver).loginToGoogleMail(login, password);
-        new WebDriverWait(driver, 10).until(ExpectedConditions.urlMatches(GOOGLE_MAIL_URL));
+        new WebDriverWait(driver, 10).until(ExpectedConditions.urlMatches(googleMailUrl));
 
         GoogleMailHomePage homePage = new GoogleMailHomePage(driver);
         GoogleMailEmailDetailsPage emailDetailsPage = new GoogleMailEmailDetailsPage(driver);
-        homePage.openInboxEmail(emailSender);
-        emailDetailsPage.deleteEmail();
+        homePage
+                .openInboxEmail(emailSender)
+                .deleteEmail();
 
         Assert.assertTrue(emailDetailsPage.getActionConfirmationPopup()
                 .getText().contains(deleteEmailTargetMessage), "Email was not moved to trash bin!");
 
-        homePage.openTrashBinPage();
-        new GoogleMailTrashBinPage(driver).openDeletedEmail();
-        emailDetailsPage.moveEmailFromTrashBinToInbox();
+        homePage
+                .openTrashBinPage()
+                .openDeletedEmail(emailSender)
+                .moveEmailFromTrashBinToInbox();
 
         Assert.assertTrue(emailDetailsPage.getActionConfirmationPopup()
                 .getText().contains(restoreEmailtargetMessage), "Email was not moved to inbox!");

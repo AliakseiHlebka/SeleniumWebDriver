@@ -3,20 +3,17 @@ package page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
 public class GoogleMailDraftsPage extends AbstractGoogleMailPage {
 
+    public static final String DRAFT_EMAILS_URL = "https://mail.google.com/mail/u/0/#drafts";
+
     @FindBy(xpath = "//span[@class='bog']")
     private List<WebElement> listOfDraftEmails;
 
-    @FindBy(xpath = "//*[@id=':7m']/span")
-    private WebElement newEmailHeader;
-
-    @FindBy(xpath = "//*[@id=':8u']")
+    @FindBy(xpath = "//div[contains (@aria-label, 'Удалить черновик')]")
     private WebElement deleteDraftEmailButton;
 
     @FindBy(xpath = "//td[@class='TC']")
@@ -37,7 +34,6 @@ public class GoogleMailDraftsPage extends AbstractGoogleMailPage {
                 break;
             }
         }
-        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(newEmailHeader));
     }
 
     public void deleteDratEmail() {

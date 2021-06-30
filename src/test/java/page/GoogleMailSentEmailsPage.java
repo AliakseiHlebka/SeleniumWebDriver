@@ -8,7 +8,7 @@ import java.util.List;
 
 public class GoogleMailSentEmailsPage extends AbstractGoogleMailPage {
 
-    public final String SENT_EMAILS_URL = "https://mail.google.com/mail/u/0/#sent";
+    public static final String SENT_EMAILS_URL = "https://mail.google.com/mail/u/0/#sent";
 
     @FindBy(xpath = "//span[@class='bog']")
     private List<WebElement> listOfSentEmails;
