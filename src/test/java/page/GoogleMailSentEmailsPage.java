@@ -19,16 +19,16 @@ public class GoogleMailSentEmailsPage extends AbstractGoogleMailPage {
     @FindBy(xpath = "//div[@class='a3s aiL ']")
     private WebElement sentEmailBody;
 
+    public GoogleMailSentEmailsPage(WebDriver driver) {
+        super(driver);
+    }
+
     public WebElement getSentEmailSubject() {
         return sentEmailSubject;
     }
 
     public WebElement getSentEmailBody() {
         return sentEmailBody;
-    }
-
-    public GoogleMailSentEmailsPage(WebDriver driver) {
-        super(driver);
     }
 
     public void openSentEmail(String text) {

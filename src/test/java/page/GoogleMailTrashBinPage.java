@@ -9,15 +9,15 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 
 public class GoogleMailTrashBinPage extends AbstractGoogleMailPage {
+    
+    public static final String TRASH_BIN_URL = "https://mail.google.com/mail/u/0/#trash";
+
+    @FindBy(xpath = "//tr[@class='zA yO']")
+    private List<WebElement> deletedEmailsList;
 
     public GoogleMailTrashBinPage(WebDriver driver) {
         super(driver);
     }
-
-    public static final String TRASH_BIN_URL = "https://mail.google.com/mail/u/0/#trash";
-
-    @FindBy(xpath = "//tr[@class='zA yO']")
-     private List<WebElement> deletedEmailsList;
 
     public GoogleMailEmailDetailsPage openDeletedEmail(String text) {
         new WebDriverWait(driver, 5).until(ExpectedConditions.urlMatches(TRASH_BIN_URL));
