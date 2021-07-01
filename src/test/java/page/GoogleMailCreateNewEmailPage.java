@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class GoogleMailCreateNewEmail extends AbstractGoogleMailPage {
+public class GoogleMailCreateNewEmailPage extends AbstractGoogleMailPage {
 
     @FindBy(xpath = "//textarea[@name='to']")
     private WebElement emailAddresseeTextField;
@@ -21,21 +21,21 @@ public class GoogleMailCreateNewEmail extends AbstractGoogleMailPage {
     @FindBy(xpath = "//img[@aria-label='Сохранить и закрыть']")
     private WebElement closeNewEmailButton;
 
-    public GoogleMailCreateNewEmail(WebDriver driver) {
+    public GoogleMailCreateNewEmailPage(WebDriver driver) {
         super(driver);
     }
 
-    public GoogleMailCreateNewEmail enterEmailAddressee(String email) {
+    public GoogleMailCreateNewEmailPage enterEmailAddressee(String email) {
         emailAddresseeTextField.sendKeys(email);
         return this;
     }
 
-    public GoogleMailCreateNewEmail enterEmailSubject(String subject) {
+    public GoogleMailCreateNewEmailPage enterEmailSubject(String subject) {
         emailSubjectTextField.sendKeys(subject);
         return this;
     }
 
-    public GoogleMailCreateNewEmail enterEmailBody(String text) {
+    public GoogleMailCreateNewEmailPage enterEmailBody(String text) {
         emailBodyTextField.sendKeys(text);
         return this;
     }

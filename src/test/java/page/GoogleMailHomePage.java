@@ -20,10 +20,10 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
     @FindBy(xpath = "//div[@data-tooltip='Отправленные']")
     private WebElement sentEmailsFolderLink;
 
-    @FindBy(xpath = "//a[contains (@aria-label, 'Черновики')]")
+    @FindBy(xpath = "//a[contains(@aria-label, 'Черновики')]")
     private WebElement draftsFolderLink;
 
-    @FindBy(xpath = "//a[contains (@aria-label, 'Аккаунт Google')]")
+    @FindBy(xpath = "//a[contains(@aria-label, 'Аккаунт Google')]")
     private WebElement googleAccountInfoButton;
 
     @FindBy(xpath = "//a[text()='Выйти']")
@@ -42,9 +42,9 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
         super(driver);
     }
 
-    public GoogleMailCreateNewEmail createNewEmail() {
+    public GoogleMailCreateNewEmailPage createNewEmail() {
         createNewEmailButton.click();
-        return new GoogleMailCreateNewEmail(driver);
+        return new GoogleMailCreateNewEmailPage(driver);
     }
 
     public GoogleMailSentEmailsPage openSentEmailsPage() {
@@ -59,7 +59,7 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
         return new GoogleMailDraftsPage(driver);
     }
 
-    public void quitGoogleAccount() {
+    public void logoutGoogleAccount() {
         googleAccountInfoButton.click();
         quitGoogleAccountButton.click();
     }
