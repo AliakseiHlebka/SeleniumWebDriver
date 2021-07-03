@@ -15,9 +15,6 @@ public class GoogleMailDraftsPage extends AbstractGoogleMailPage {
     @FindBy(xpath = "//span[@class='bog']")
     private List<WebElement> listOfDraftEmails;
 
-    @FindBy(xpath = "//div[contains(@aria-label, 'Удалить черновик')]")
-    private WebElement deleteDraftEmailButton;
-
     @FindBy(xpath = "//td[@class='TC']")
     private WebElement noDraftEmailsMessage;
 
@@ -32,7 +29,7 @@ public class GoogleMailDraftsPage extends AbstractGoogleMailPage {
         return noDraftEmailsMessage;
     }
 
-    public void openDraftEmail(String text) {
+    public GoogleMailEmailDetailsPage openDraftEmail(String text) {
         for (WebElement email : listOfDraftEmails) {
             if (email.getText().contains(text)) {
                 email.click();
@@ -40,9 +37,6 @@ public class GoogleMailDraftsPage extends AbstractGoogleMailPage {
             }
         }
         new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(emailAddresseeTextField));
-    }
-
-    public void deleteDraftEmail() {
-       deleteDraftEmailButton.click();
+        return new GoogleMailEmailDetailsPage(driver);
     }
 }

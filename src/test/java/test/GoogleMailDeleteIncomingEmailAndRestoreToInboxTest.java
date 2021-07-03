@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import page.GoogleLoginPage;
 import page.GoogleMailEmailDetailsPage;
 import page.GoogleMailHomePage;
+import page.GoogleMailTrashBinPage;
 
 public class GoogleMailDeleteIncomingEmailAndRestoreToInboxTest {
 
@@ -32,22 +33,18 @@ public class GoogleMailDeleteIncomingEmailAndRestoreToInboxTest {
         String restoreEmailtargetMessage = "Цепочка перемещена во входящие.";
         String emailSender = "The Google team";
 
-        GoogleMailEmailDetailsPage emailDetailsPage = new GoogleMailEmailDetailsPage(driver);
-        GoogleMailHomePage homePage = new GoogleMailHomePage(driver);
+        GoogleMailHomePage homePage = new GoogleLoginPage(driver).loginToGoogleMail(login, password);
+        GoogleMailEmailDetailsPage emailDetailsPage = homePage.openInboxEmail(emailSender);
+        homePage = emailDetailsPage.deleteEmail();
 
-        new GoogleLoginPage(driver).loginToGoogleMail(login, password);
-
-        homePage.openInboxEmail(emailSender)
-                .deleteEmail();
-
-        Assert.assertTrue(emailDetailsPage.getActionConfirmationPopup()
+        Assert.assertEquals(emailDetailsPage.getActionConfirmationPopup()
                 .getText().contains(deleteEmailTargetMessage), "Email was not moved to trash bin!");
 
-        homePage.openTrashBinPage()
-                .openDeletedEmail(emailSender)
-                .moveEmailFromTrashBinToInbox();
+        GoogleMailTrashBinPage trashBinPage = homePage.openTrashBinPage();
+        emailDetailsPage = trashBinPage.openDeletedEmail(emailSender);
+        homePage = emailDetailsPage.moveEmailFromTrashBinToInbox();
 
-        Assert.assertTrue(emailDetailsPage.getActionConfirmationPopup()
+        Assert.assertEquals(emailDetailsPage.getActionConfirmationPopup()
                 .getText().contains(restoreEmailtargetMessage), "Email was not moved to inbox!");
 
         homePage.logoutGoogleAccount();
