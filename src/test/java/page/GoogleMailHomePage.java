@@ -85,4 +85,16 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
         trashBinFolderLink.click();
         return new GoogleMailTrashBinPage(driver);
     }
+
+    public String getCurrentPageUrl() {
+        String currentUrl = (String) javascriptExecutor.executeScript("return document.location.href;");
+        return currentUrl;
+    }
+
+    public GoogleMailHomePage generateTestPassAlert() {
+        javascriptExecutor.executeScript("alert('Test Passed!');");
+        new WebDriverWait(driver, 5).until(ExpectedConditions.alertIsPresent());
+        driver.switchTo().alert().accept();
+        return this;
+    }
 }
