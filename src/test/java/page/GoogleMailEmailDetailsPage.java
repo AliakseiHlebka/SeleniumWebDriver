@@ -25,8 +25,14 @@ public class GoogleMailEmailDetailsPage extends AbstractGoogleMailPage {
     @FindBy(xpath = "//*[@id=':7z']/span")
     private WebElement emailAddresseeTextField;
 
+    @FindBy(xpath = "//h2[@class='hP']")
+    private WebElement emailSubjectTextField;
+
     @FindBy(xpath = "//div[@aria-label='Тело письма']")
     private WebElement emailBodyTextField;
+
+    @FindBy(xpath = "//div[contains(@aria-label, 'Удалить черновик')]")
+    private WebElement deleteDraftEmailButton;
 
     public GoogleMailEmailDetailsPage(WebDriver driver) {
         super(driver);
@@ -56,5 +62,10 @@ public class GoogleMailEmailDetailsPage extends AbstractGoogleMailPage {
         wait.until(ExpectedConditions.elementToBeClickable(moveToInboxButton));
         moveToInboxButton.click();
         return new GoogleMailHomePage(driver);
+    }
+
+    public GoogleMailDraftsPage deleteDraftEmail() {
+        deleteDraftEmailButton.click();
+        return new GoogleMailDraftsPage(driver);
     }
 }

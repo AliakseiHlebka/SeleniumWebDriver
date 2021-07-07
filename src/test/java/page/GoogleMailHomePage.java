@@ -10,6 +10,7 @@ import java.util.List;
 
 public class GoogleMailHomePage extends AbstractGoogleMailPage {
 
+    static final String HOMEPAGE_URL = "https://mail.google.com/mail/u/0/#inbox";
     WebDriverWait wait = new WebDriverWait(driver, 10);
     GoogleMailSentEmailsPage sentEmailsPage = new GoogleMailSentEmailsPage(driver);
     GoogleMailDraftsPage draftsPage = new GoogleMailDraftsPage(driver);
@@ -40,6 +41,10 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
 
     public GoogleMailHomePage(WebDriver driver) {
         super(driver);
+    }
+
+    public String getHomepageUrl() {
+        return HOMEPAGE_URL;
     }
 
     public GoogleMailCreateNewEmailPage createNewEmail() {
