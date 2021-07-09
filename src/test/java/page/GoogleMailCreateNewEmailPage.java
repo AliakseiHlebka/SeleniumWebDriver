@@ -1,7 +1,9 @@
 package page;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 public class GoogleMailCreateNewEmailPage extends AbstractGoogleMailPage {
@@ -45,7 +47,9 @@ public class GoogleMailCreateNewEmailPage extends AbstractGoogleMailPage {
     }
 
     public GoogleMailCreateNewEmailPage enterEmailSubject(String subject) {
-        emailSubjectTextField.sendKeys(subject);
+//        emailSubjectTextField.sendKeys(subject);
+        WebElement element = emailSubjectTextField;
+        javascriptExecutor.executeScript("arguments[0].value='"+ subject +"';", element);
         return this;
     }
 
@@ -62,5 +66,19 @@ public class GoogleMailCreateNewEmailPage extends AbstractGoogleMailPage {
     public GoogleMailHomePage closeNewEmail() {
         closeNewEmailButton.click();
         return new GoogleMailHomePage(driver);
+    }
+
+    public GoogleMailCreateNewEmailPage copyEmailSubject() {
+        new Actions(driver).click(emailSubjectTextField)
+                .doubleClick()
+                .keyDown(Keys.CONTROL).sendKeys("c").keyUp(Keys.CONTROL)
+                .build().perform();
+        return this;
+    }
+
+    public GoogleMailCreateNewEmailPage pasteCopiedValueToEmailBody() {
+        new Actions(driver).click(emailBodyTextField).keyDown(Keys.CONTROL).sendKeys("v").keyUp(Keys.CONTROL)
+                .build().perform();
+        return this;
     }
 }
