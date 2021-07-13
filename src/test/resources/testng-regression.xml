@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Regression" verbose="1">
+    <test name="All tests">
+        <classes>
+            <class name="test.GoogleMailLoginTest" />
+            <class name="test.GoogleMailDeleteIncomingEmailAndRestoreToInboxTest" />
+            <class name="test.GoogleMailSaveNewMailAsDraftAndDeleteTest" />
+            <class name="test.GoogleMailSendEmailTest" />
+        </classes>
+    </test>
+</suite>

@@ -47,26 +47,30 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
         return HOMEPAGE_URL;
     }
 
-    public GoogleMailCreateNewEmailPage createNewEmail() {
+    public GoogleMailCreateNewEmailPage goToCreateNewEmail() {
         createNewEmailButton.click();
+        log.info("Create new email page opened");
         return new GoogleMailCreateNewEmailPage(driver);
     }
 
     public GoogleMailSentEmailsPage openSentEmailsPage() {
         sentEmailsFolderLink.click();
         wait.until(ExpectedConditions.urlMatches(sentEmailsPage.SENT_EMAILS_URL));
+        log.info("Sent emails page opened");
         return new GoogleMailSentEmailsPage(driver);
     }
 
     public GoogleMailDraftsPage openDraftsPage() {
         draftsFolderLink.click();
         wait.until(ExpectedConditions.urlMatches(draftsPage.DRAFT_EMAILS_URL));
+        log.info("Drafts page opened");
         return new GoogleMailDraftsPage(driver);
     }
 
     public void logoutGoogleAccount() {
         googleAccountInfoButton.click();
         quitGoogleAccountButton.click();
+        log.info("Logout success. Test passed\n**************");
     }
 
     public GoogleMailEmailDetailsPage openInboxEmail(String text) {
@@ -76,6 +80,7 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
                 break;
             }
         }
+        log.info("Inbox email opened");
         return new GoogleMailEmailDetailsPage(driver);
     }
 
@@ -83,6 +88,7 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
         wait.until(ExpectedConditions.elementToBeClickable(expandMenuOptionsButton));
         expandMenuOptionsButton.click();
         trashBinFolderLink.click();
+        log.info("Trash bin page opened");
         return new GoogleMailTrashBinPage(driver);
     }
 
@@ -95,6 +101,7 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
         javascriptExecutor.executeScript("alert('Test Passed!');");
         new WebDriverWait(driver, 5).until(ExpectedConditions.alertIsPresent());
         driver.switchTo().alert().accept();
+        log.info("Test passed\n**************");
         return this;
     }
 }

@@ -24,6 +24,7 @@ public class GoogleMailSentEmailsPage extends AbstractGoogleMailPage {
                 break;
             }
         }
+        log.info("Sent email opened");
         return new GoogleMailCreateNewEmailPage(driver);
     }
 }

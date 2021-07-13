@@ -1,5 +1,6 @@
 package page;
 
+import model.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,14 +28,17 @@ public class GoogleLoginPage extends AbstractGoogleMailPage {
         super(driver);
     }
 
-    public GoogleMailHomePage loginToGoogleMail(String login, String password) {
+    public GoogleMailHomePage loginToGoogleMail(User user) {
         driver.get(GOOGLE_MAIL_URL);
-        loginOrEmailTextfield.sendKeys(login);
+        loginOrEmailTextfield.sendKeys(user.getLogin());
         confirmEmailOrPhoneButton.click();
+        log.info("Login entered");
         wait.until(ExpectedConditions.visibilityOf(passwordTextField));
-        passwordTextField.sendKeys(password);
+        passwordTextField.sendKeys(user.getPassword());
         confirmPasswordButton.click();
+        log.info("Password entered");
         wait.until(ExpectedConditions.urlMatches(GoogleMailHomePage.HOMEPAGE_URL));
+        log.info("Signed in successfully");
         return new GoogleMailHomePage(driver);
     }
 }

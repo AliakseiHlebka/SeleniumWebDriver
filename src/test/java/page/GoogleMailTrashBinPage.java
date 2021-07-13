@@ -27,6 +27,7 @@ public class GoogleMailTrashBinPage extends AbstractGoogleMailPage {
                 break;
             }
         }
+        log.info("Deleted email opened");
         return new GoogleMailEmailDetailsPage(driver);
     }
 }
