@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import page.GoogleLoginPage;
 import page.GoogleMailHomePage;
 import service.UserCreator;
+import util.AlertsGenerator;
 
 public class GoogleMailLoginTest extends CommonConditions {
 
@@ -14,6 +15,6 @@ public class GoogleMailLoginTest extends CommonConditions {
         User testUser = UserCreator.withValidCredentials();
         GoogleMailHomePage homePage = new GoogleLoginPage(driver).loginToGoogleMail(testUser);
         Assert.assertEquals(homePage.getCurrentPageUrl(), homePage.getHomepageUrl(), "Login failed");
-        homePage.generateTestPassAlert();
+        new AlertsGenerator().generateTestPassAlert();
     }
 }

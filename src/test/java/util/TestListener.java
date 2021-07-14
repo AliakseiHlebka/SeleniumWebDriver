@@ -16,6 +16,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class TestListener implements ITestListener {
+
     private Logger log = LogManager.getRootLogger();
 
     public void onTestStart(ITestResult iTestResult) {
@@ -43,13 +44,14 @@ public class TestListener implements ITestListener {
     }
 
     private void saveScreenshot() {
+        String screenshotPathName = ".//target/screenshots/";
         File screenCapture = ((TakesScreenshot) DriverSingleton
                 .getDriver())
                 .getScreenshotAs(OutputType.FILE);
         log.error("Error screenshot taken");
         try {
             FileUtils.copyFile(screenCapture, new File(
-                    ".//target/screenshots/"
+                    screenshotPathName
                     + getCurrentTime() + ".png"));
         } catch (IOException e) {
             log.error("Failed to save screenshot: " + e.getLocalizedMessage());
@@ -57,7 +59,8 @@ public class TestListener implements ITestListener {
     }
 
     private String getCurrentTime() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd_HH-mm-ss");
+        String screenshotDateTimeFormat = "uuuu-MM-dd_HH-mm-ss";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(screenshotDateTimeFormat);
         return ZonedDateTime.now().format(formatter);
     }
 }

@@ -21,9 +21,6 @@ public class GoogleMailDraftsPage extends AbstractGoogleMailPage {
     @FindBy(xpath = "//*[@id=':7z']/span")
     private WebElement emailAddresseeTextField;
 
-    @FindBy (xpath = "//*[@id=':68']/span")
-    private WebElement draftEmailLabel;
-
     public GoogleMailDraftsPage(WebDriver driver) {
         super(driver);
     }
@@ -33,21 +30,6 @@ public class GoogleMailDraftsPage extends AbstractGoogleMailPage {
     }
 
     public GoogleMailEmailDetailsPage openDraftEmail(String text) {
-//        try {
-//            for (WebElement email : listOfDraftEmails) {
-//                if (email.getText().contains(text)) {
-//                    email.click();
-//                    break;
-//                }
-//            }
-//        } catch (org.openqa.selenium.StaleElementReferenceException ex) {
-//            for (WebElement email : listOfDraftEmails) {
-//                if (email.getText().contains(text)) {
-//                    email.click();
-//                    break;
-//                }
-//            }
-//        }
         for (WebElement email : listOfDraftEmails) {
             if (email.getText().contains(text)) {
                 email.click();

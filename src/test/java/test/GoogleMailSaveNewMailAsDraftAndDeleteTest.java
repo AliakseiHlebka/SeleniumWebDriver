@@ -12,6 +12,7 @@ import page.GoogleMailEmailDetailsPage;
 import page.GoogleMailHomePage;
 import service.EmailCreator;
 import service.UserCreator;
+import util.AlertsGenerator;
 
 public class GoogleMailSaveNewMailAsDraftAndDeleteTest extends CommonConditions {
 
@@ -27,7 +28,7 @@ public class GoogleMailSaveNewMailAsDraftAndDeleteTest extends CommonConditions 
         Assert.assertEquals(homePage.getCurrentPageUrl(), homePage.getHomepageUrl(), "Login failed");
 
         GoogleMailCreateNewEmailPage createNewEmailPage = homePage.goToCreateNewEmail();
-        createNewEmailPage.createNewEmail(newEmail);
+        createNewEmailPage.fillInEmailData(newEmail);
         homePage = createNewEmailPage.closeNewEmail();
         GoogleMailDraftsPage draftsPage = homePage.openDraftsPage();
         GoogleMailEmailDetailsPage emailDetailsPage = draftsPage.openDraftEmail(newEmail.getEmailSubject());
@@ -43,5 +44,6 @@ public class GoogleMailSaveNewMailAsDraftAndDeleteTest extends CommonConditions 
                         .contains("Нет сохраненных черновиков."), "Drafts folder is not empty!");
 
         homePage.logoutGoogleAccount();
+        new AlertsGenerator().generateTestPassAlert();
     }
 }

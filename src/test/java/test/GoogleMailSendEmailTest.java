@@ -11,6 +11,7 @@ import page.GoogleMailHomePage;
 import page.GoogleMailSentEmailsPage;
 import service.EmailCreator;
 import service.UserCreator;
+import util.AlertsGenerator;
 
 public class GoogleMailSendEmailTest extends CommonConditions {
 
@@ -25,7 +26,7 @@ public class GoogleMailSendEmailTest extends CommonConditions {
         Assert.assertEquals(driver.getCurrentUrl(), homePage.getHomepageUrl(), "Login failed");
 
         GoogleMailCreateNewEmailPage createNewEmailPage = homePage.goToCreateNewEmail();
-        createNewEmailPage.createNewEmail(newEmail);
+        createNewEmailPage.fillInEmailData(newEmail);
         homePage = createNewEmailPage.sendEmail();
         GoogleMailSentEmailsPage sentEmailsPage = homePage.openSentEmailsPage();
         createNewEmailPage = sentEmailsPage.openSentEmail(newEmail.getEmailSubject());
@@ -36,5 +37,6 @@ public class GoogleMailSendEmailTest extends CommonConditions {
                 .getText(), newEmail.getEmailBody(), "Email body is different from the expected one!");
 
         homePage.logoutGoogleAccount();
+        new AlertsGenerator().generateTestPassAlert();
     }
 }

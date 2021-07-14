@@ -70,7 +70,7 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
     public void logoutGoogleAccount() {
         googleAccountInfoButton.click();
         quitGoogleAccountButton.click();
-        log.info("Logout success. Test passed\n**************");
+        log.info("Logout success");
     }
 
     public GoogleMailEmailDetailsPage openInboxEmail(String text) {
@@ -95,13 +95,5 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
     public String getCurrentPageUrl() {
         String currentUrl = (String) javascriptExecutor.executeScript("return document.location.href;");
         return currentUrl;
-    }
-
-    public GoogleMailHomePage generateTestPassAlert() {
-        javascriptExecutor.executeScript("alert('Test Passed!');");
-        new WebDriverWait(driver, 5).until(ExpectedConditions.alertIsPresent());
-        driver.switchTo().alert().accept();
-        log.info("Test passed\n**************");
-        return this;
     }
 }

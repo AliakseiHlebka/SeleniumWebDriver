@@ -64,7 +64,7 @@ public class GoogleMailEmailDetailsPage extends AbstractGoogleMailPage {
         moveToFolderButton.click();
         wait.until(ExpectedConditions.elementToBeClickable(moveToInboxButton));
         moveToInboxButton.click();
-        log.info("Email moved to trash bin");
+        log.info("Email moved to inbox");
         return new GoogleMailHomePage(driver);
     }
 

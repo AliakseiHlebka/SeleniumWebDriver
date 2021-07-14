@@ -9,6 +9,7 @@ import page.GoogleMailEmailDetailsPage;
 import page.GoogleMailHomePage;
 import page.GoogleMailTrashBinPage;
 import service.UserCreator;
+import util.AlertsGenerator;
 
 public class GoogleMailDeleteIncomingEmailAndRestoreToInboxTest extends CommonConditions {
 
@@ -35,5 +36,6 @@ public class GoogleMailDeleteIncomingEmailAndRestoreToInboxTest extends CommonCo
                 .getText().contains(restoreEmailTargetMessage), "Email was not moved to inbox!");
 
         homePage.logoutGoogleAccount();
+        new AlertsGenerator().generateTestPassAlert();
     }
 }

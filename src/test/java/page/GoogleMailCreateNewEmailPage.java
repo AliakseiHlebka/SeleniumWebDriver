@@ -44,27 +44,23 @@ public class GoogleMailCreateNewEmailPage extends AbstractGoogleMailPage {
         return emailBody;
     }
 
-    public GoogleMailCreateNewEmailPage createNewEmail(Email email) {
+    public GoogleMailCreateNewEmailPage fillInEmailData(Email email) {
         new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(emailAddresseeTextField));
         emailAddresseeTextField.sendKeys(email.getEmailAddressee());
-        if (email.getEmailAddressee().equals("")) {
-            log.warn("Email addressee is null");
-        } else {
-            log.info("Email addressee entered");
-        }
+        isInputDataEmpty(email.getEmailAddressee(), "Email addressee");
         emailSubjectTextField.sendKeys(email.getEmailSubject());
-        if (email.getEmailSubject().equals("")) {
-            log.warn("Email subject is null");
-        } else {
-            log.info("Email subject entered");
-        }
+        isInputDataEmpty(email.getEmailSubject(), "Email subject");
         emailBodyTextField.sendKeys(email.getEmailBody());
-        if (email.getEmailBody().equals("")) {
-            log.warn("Email body is null");
-        } else {
-            log.info("Email body entered");
-        }
+        isInputDataEmpty(email.getEmailBody(), "Email body");
         return this;
+    }
+
+    public void isInputDataEmpty(String checkedField, String checkedFieldName) {
+        if (checkedField.isEmpty()) {
+            log.warn(checkedFieldName + " is empty");
+        } else {
+            log.info(checkedFieldName + " entered");
+        }
     }
 
     public GoogleMailHomePage sendEmail() {
@@ -75,7 +71,7 @@ public class GoogleMailCreateNewEmailPage extends AbstractGoogleMailPage {
 
     public GoogleMailHomePage closeNewEmail() {
         closeNewEmailButton.click();
-        log.info("New email closed and saved to drafts");
+        log.info("New email closed and saved as a draft");
         return new GoogleMailHomePage(driver);
     }
 

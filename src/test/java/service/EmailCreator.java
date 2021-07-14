@@ -15,17 +15,17 @@ public class EmailCreator {
     }
 
     public static Email withEmptyAddressee() {
-        return new Email("", TestDataReader.getTestData(EMAIL_SUBJECT),
+        return new Email(null, TestDataReader.getTestData(EMAIL_SUBJECT),
                 TestDataReader.getTestData(EMAIL_BODY));
     }
 
     public static Email withEmptySubject() {
-        return new Email(TestDataReader.getTestData(EMAIL_ADDRESSEE), "",
+        return new Email(TestDataReader.getTestData(EMAIL_ADDRESSEE), null,
                 TestDataReader.getTestData(EMAIL_BODY));
     }
 
     public static Email withEmptyBody() {
         return new Email(TestDataReader.getTestData(EMAIL_ADDRESSEE),
-                TestDataReader.getTestData(EMAIL_SUBJECT), "");
+                TestDataReader.getTestData(EMAIL_SUBJECT), null);
     }
 }

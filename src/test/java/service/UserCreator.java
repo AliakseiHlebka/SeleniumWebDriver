@@ -13,10 +13,10 @@ public class UserCreator {
     }
 
     public static User withEmptyLogin() {
-        return new User("", TestDataReader.getTestData(PASSWORD));
+        return new User(null, TestDataReader.getTestData(PASSWORD));
     }
 
     public static User withEmptyPassword() {
-        return new User(TestDataReader.getTestData(LOGIN), "");
+        return new User(TestDataReader.getTestData(LOGIN), null);
     }
 }
