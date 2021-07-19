@@ -55,6 +55,7 @@ public class GoogleMailEmailDetailsPage extends AbstractGoogleMailPage {
     public GoogleMailHomePage deleteEmail() {
         wait.until(ExpectedConditions.visibilityOf(deleteEmailButton));
         deleteEmailButton.click();
+        log.info("Email deleted");
         return new GoogleMailHomePage(driver);
     }
 
@@ -63,11 +64,13 @@ public class GoogleMailEmailDetailsPage extends AbstractGoogleMailPage {
         moveToFolderButton.click();
         wait.until(ExpectedConditions.elementToBeClickable(moveToInboxButton));
         moveToInboxButton.click();
+        log.info("Email moved to inbox");
         return new GoogleMailHomePage(driver);
     }
 
     public GoogleMailDraftsPage deleteDraftEmail() {
         deleteDraftEmailButton.click();
+        log.info("Draft email deleted");
         return new GoogleMailDraftsPage(driver);
     }
 
@@ -75,6 +78,7 @@ public class GoogleMailEmailDetailsPage extends AbstractGoogleMailPage {
         new Actions(driver).keyDown(Keys.CONTROL).keyDown(Keys.SHIFT).sendKeys("d")
                 .keyUp(Keys.CONTROL).keyUp(Keys.SHIFT)
                 .build().perform();
+        log.info("Draft email deleted");
         return new GoogleMailDraftsPage(driver);
     }
 }

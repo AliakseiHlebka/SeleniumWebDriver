@@ -37,6 +37,7 @@ public class GoogleMailDraftsPage extends AbstractGoogleMailPage {
             }
         }
         new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(emailAddresseeTextField));
+        log.info("Draft email opened");
         return new GoogleMailEmailDetailsPage(driver);
     }
 }

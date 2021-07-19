@@ -47,26 +47,30 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
         return HOMEPAGE_URL;
     }
 
-    public GoogleMailCreateNewEmailPage createNewEmail() {
+    public GoogleMailCreateNewEmailPage goToCreateNewEmail() {
         createNewEmailButton.click();
+        log.info("Create new email page opened");
         return new GoogleMailCreateNewEmailPage(driver);
     }
 
     public GoogleMailSentEmailsPage openSentEmailsPage() {
         sentEmailsFolderLink.click();
         wait.until(ExpectedConditions.urlMatches(sentEmailsPage.SENT_EMAILS_URL));
+        log.info("Sent emails page opened");
         return new GoogleMailSentEmailsPage(driver);
     }
 
     public GoogleMailDraftsPage openDraftsPage() {
         draftsFolderLink.click();
         wait.until(ExpectedConditions.urlMatches(draftsPage.DRAFT_EMAILS_URL));
+        log.info("Drafts page opened");
         return new GoogleMailDraftsPage(driver);
     }
 
     public void logoutGoogleAccount() {
         googleAccountInfoButton.click();
         quitGoogleAccountButton.click();
+        log.info("Logout success");
     }
 
     public GoogleMailEmailDetailsPage openInboxEmail(String text) {
@@ -76,6 +80,7 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
                 break;
             }
         }
+        log.info("Inbox email opened");
         return new GoogleMailEmailDetailsPage(driver);
     }
 
@@ -83,18 +88,12 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
         wait.until(ExpectedConditions.elementToBeClickable(expandMenuOptionsButton));
         expandMenuOptionsButton.click();
         trashBinFolderLink.click();
+        log.info("Trash bin page opened");
         return new GoogleMailTrashBinPage(driver);
     }
 
     public String getCurrentPageUrl() {
         String currentUrl = (String) javascriptExecutor.executeScript("return document.location.href;");
         return currentUrl;
-    }
-
-    public GoogleMailHomePage generateTestPassAlert() {
-        javascriptExecutor.executeScript("alert('Test Passed!');");
-        new WebDriverWait(driver, 5).until(ExpectedConditions.alertIsPresent());
-        driver.switchTo().alert().accept();
-        return this;
     }
 }

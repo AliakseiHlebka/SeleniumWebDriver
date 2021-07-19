@@ -1,10 +1,13 @@
 package page;
 
+import model.Email;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class GoogleMailCreateNewEmailPage extends AbstractGoogleMailPage {
 
@@ -41,30 +44,34 @@ public class GoogleMailCreateNewEmailPage extends AbstractGoogleMailPage {
         return emailBody;
     }
 
-    public GoogleMailCreateNewEmailPage enterEmailAddressee(String email) {
-        emailAddresseeTextField.sendKeys(email);
+    public GoogleMailCreateNewEmailPage fillInEmailData(Email email) {
+        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(emailAddresseeTextField));
+        emailAddresseeTextField.sendKeys(email.getEmailAddressee());
+        isInputDataEmpty(email.getEmailAddressee(), "Email addressee");
+        emailSubjectTextField.sendKeys(email.getEmailSubject());
+        isInputDataEmpty(email.getEmailSubject(), "Email subject");
+        emailBodyTextField.sendKeys(email.getEmailBody());
+        isInputDataEmpty(email.getEmailBody(), "Email body");
         return this;
     }
 
-    public GoogleMailCreateNewEmailPage enterEmailSubject(String subject) {
-//        emailSubjectTextField.sendKeys(subject);
-        WebElement element = emailSubjectTextField;
-        javascriptExecutor.executeScript("arguments[0].value='"+ subject +"';", element);
-        return this;
-    }
-
-    public GoogleMailCreateNewEmailPage enterEmailBody(String text) {
-        emailBodyTextField.sendKeys(text);
-        return this;
+    public void isInputDataEmpty(String checkedField, String checkedFieldName) {
+        if (checkedField.isEmpty()) {
+            log.warn(checkedFieldName + " is empty");
+        } else {
+            log.info(checkedFieldName + " entered");
+        }
     }
 
     public GoogleMailHomePage sendEmail() {
         sendEmailButton.click();
+        log.info("Email sent");
         return new GoogleMailHomePage(driver);
     }
 
     public GoogleMailHomePage closeNewEmail() {
         closeNewEmailButton.click();
+        log.info("New email closed and saved as a draft");
         return new GoogleMailHomePage(driver);
     }
 
