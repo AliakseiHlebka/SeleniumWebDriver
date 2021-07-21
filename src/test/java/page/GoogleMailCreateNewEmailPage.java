@@ -1,13 +1,11 @@
 package page;
 
-import model.Email;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import model.Email;
 
 public class GoogleMailCreateNewEmailPage extends AbstractGoogleMailPage {
 
@@ -32,6 +30,9 @@ public class GoogleMailCreateNewEmailPage extends AbstractGoogleMailPage {
     @FindBy(xpath = "//img[@aria-label='Сохранить и закрыть']")
     private WebElement closeNewEmailButton;
 
+    @FindBy(xpath = "//span[@class='bAq']")
+    private WebElement actionConfirmationPopup;
+
     public GoogleMailCreateNewEmailPage(WebDriver driver) {
         super(driver);
     }
@@ -44,8 +45,12 @@ public class GoogleMailCreateNewEmailPage extends AbstractGoogleMailPage {
         return emailBody;
     }
 
+    public WebElement getActionConfirmationPopup() {
+        return actionConfirmationPopup;
+    }
+
     public GoogleMailCreateNewEmailPage fillInEmailData(Email email) {
-        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(emailAddresseeTextField));
+        wait.until(ExpectedConditions.visibilityOf(emailAddresseeTextField));
         emailAddresseeTextField.sendKeys(email.getEmailAddressee());
         isInputDataEmpty(email.getEmailAddressee(), "Email addressee");
         emailSubjectTextField.sendKeys(email.getEmailSubject());
@@ -63,29 +68,31 @@ public class GoogleMailCreateNewEmailPage extends AbstractGoogleMailPage {
         }
     }
 
+    public GoogleMailCreateNewEmailPage enterEmailAddressee(String email) {
+        emailAddresseeTextField.sendKeys(email);
+        return this;
+    }
+
+    public GoogleMailCreateNewEmailPage enterEmailSubject(String subject) {
+        emailSubjectTextField.sendKeys(subject);
+        return this;
+    }
+
+    public GoogleMailCreateNewEmailPage eneterEmailBody(String text) {
+        emailBodyTextField.sendKeys(text);
+        return this;
+    }
+
     public GoogleMailHomePage sendEmail() {
         sendEmailButton.click();
         log.info("Email sent");
+        wait.until(ExpectedConditions.textToBePresentInElement(actionConfirmationPopup, "Письмо отправлено."));
         return new GoogleMailHomePage(driver);
     }
 
-    public GoogleMailHomePage closeNewEmail() {
+    public GoogleMailHomePage closeEmailPopupWindow() {
         closeNewEmailButton.click();
-        log.info("New email closed and saved as a draft");
+        log.info("New email closed");
         return new GoogleMailHomePage(driver);
-    }
-
-    public GoogleMailCreateNewEmailPage copyEmailSubject() {
-        new Actions(driver).click(emailSubjectTextField)
-                .doubleClick()
-                .keyDown(Keys.CONTROL).sendKeys("c").keyUp(Keys.CONTROL)
-                .build().perform();
-        return this;
-    }
-
-    public GoogleMailCreateNewEmailPage pasteCopiedValueToEmailBody() {
-        new Actions(driver).click(emailBodyTextField).keyDown(Keys.CONTROL).sendKeys("v").keyUp(Keys.CONTROL)
-                .build().perform();
-        return this;
     }
 }

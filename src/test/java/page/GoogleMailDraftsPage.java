@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class GoogleMailDraftsPage extends AbstractGoogleMailPage {
                 break;
             }
         }
-        new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(emailAddresseeTextField));
+        wait.until(ExpectedConditions.visibilityOf(emailAddresseeTextField));
         log.info("Draft email opened");
         return new GoogleMailEmailDetailsPage(driver);
     }

@@ -4,16 +4,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
 public class GoogleMailHomePage extends AbstractGoogleMailPage {
 
     static final String HOMEPAGE_URL = "https://mail.google.com/mail/u/0/#inbox";
-    WebDriverWait wait = new WebDriverWait(driver, 10);
-    GoogleMailSentEmailsPage sentEmailsPage = new GoogleMailSentEmailsPage(driver);
-    GoogleMailDraftsPage draftsPage = new GoogleMailDraftsPage(driver);
 
     @FindBy(xpath = "//div[text()='Написать']")
     private WebElement createNewEmailButton;
@@ -23,12 +19,6 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
 
     @FindBy(xpath = "//a[contains(@aria-label, 'Черновики')]")
     private WebElement draftsFolderLink;
-
-    @FindBy(xpath = "//a[contains(@aria-label, 'Аккаунт Google')]")
-    private WebElement googleAccountInfoButton;
-
-    @FindBy(xpath = "//a[text()='Выйти']")
-    private WebElement quitGoogleAccountButton;
     
     @FindBy(xpath = "//span[@class='bA4']")
     private List<WebElement> listOfInboxEmails;
@@ -55,22 +45,16 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
 
     public GoogleMailSentEmailsPage openSentEmailsPage() {
         sentEmailsFolderLink.click();
-        wait.until(ExpectedConditions.urlMatches(sentEmailsPage.SENT_EMAILS_URL));
+        wait.until(ExpectedConditions.urlMatches(GoogleMailSentEmailsPage.SENT_EMAILS_URL));
         log.info("Sent emails page opened");
         return new GoogleMailSentEmailsPage(driver);
     }
 
     public GoogleMailDraftsPage openDraftsPage() {
         draftsFolderLink.click();
-        wait.until(ExpectedConditions.urlMatches(draftsPage.DRAFT_EMAILS_URL));
+        wait.until(ExpectedConditions.urlMatches(GoogleMailDraftsPage.DRAFT_EMAILS_URL));
         log.info("Drafts page opened");
         return new GoogleMailDraftsPage(driver);
-    }
-
-    public void logoutGoogleAccount() {
-        googleAccountInfoButton.click();
-        quitGoogleAccountButton.click();
-        log.info("Logout success");
     }
 
     public GoogleMailEmailDetailsPage openInboxEmail(String text) {
@@ -90,10 +74,5 @@ public class GoogleMailHomePage extends AbstractGoogleMailPage {
         trashBinFolderLink.click();
         log.info("Trash bin page opened");
         return new GoogleMailTrashBinPage(driver);
-    }
-
-    public String getCurrentPageUrl() {
-        String currentUrl = (String) javascriptExecutor.executeScript("return document.location.href;");
-        return currentUrl;
     }
 }

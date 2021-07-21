@@ -1,16 +1,15 @@
 package page;
 
-import model.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import model.User;
 
 public class GoogleLoginPage extends AbstractGoogleMailPage {
 
     private static final String GOOGLE_MAIL_URL = "https://mail.google.com";
-    private WebDriverWait wait = new WebDriverWait(driver, 5);
 
     @FindBy(id = "identifierId")
     private WebElement loginOrEmailTextfield;

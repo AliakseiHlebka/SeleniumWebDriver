@@ -1,14 +1,14 @@
 package test;
 
-import model.User;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import model.User;
 import page.GoogleLoginPage;
 import page.GoogleMailEmailDetailsPage;
 import page.GoogleMailHomePage;
 import page.GoogleMailTrashBinPage;
-import service.UserCreator;
+import service.ValidUserCreator;
 import util.AlertsGenerator;
 
 public class GoogleMailDeleteIncomingEmailAndRestoreToInboxTest extends CommonConditions {
@@ -20,7 +20,7 @@ public class GoogleMailDeleteIncomingEmailAndRestoreToInboxTest extends CommonCo
         String restoreEmailTargetMessage = "Цепочка перемещена во входящие.";
         String emailSender = "The Google team";
 
-        User testUser = UserCreator.withValidCredentials();
+        User testUser = new ValidUserCreator().createUser();
         GoogleMailHomePage homePage = new GoogleLoginPage(driver).loginToGoogleMail(testUser);
         GoogleMailEmailDetailsPage emailDetailsPage = homePage.openInboxEmail(emailSender);
         homePage = emailDetailsPage.deleteEmail();

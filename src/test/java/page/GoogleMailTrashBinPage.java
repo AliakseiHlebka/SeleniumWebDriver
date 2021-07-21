@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class GoogleMailTrashBinPage extends AbstractGoogleMailPage {
     }
 
     public GoogleMailEmailDetailsPage openDeletedEmail(String text) {
-        new WebDriverWait(driver, 5).until(ExpectedConditions.urlMatches(TRASH_BIN_URL));
+        wait.until(ExpectedConditions.urlMatches(TRASH_BIN_URL));
         for (WebElement email : deletedEmailsList) {
             if (email.getText().contains(text)) {
                 email.click();
