@@ -1,5 +1,7 @@
 package model;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Objects;
 
 public class User {
@@ -12,6 +14,10 @@ public class User {
         this.password = password;
     }
 
+    public User(String login) {
+        this.login = login;
+    }
+
     public String getLogin() {
         return login;
     }
@@ -21,7 +27,7 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        return password != null ? password : StringUtils.EMPTY;
     }
 
     public void setPassword(String password) {

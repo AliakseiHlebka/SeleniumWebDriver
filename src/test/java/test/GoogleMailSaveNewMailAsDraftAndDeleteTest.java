@@ -1,35 +1,35 @@
 package test;
 
-import model.Email;
-import model.User;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import model.Email;
+import model.User;
 import page.GoogleLoginPage;
 import page.GoogleMailCreateNewEmailPage;
 import page.GoogleMailDraftsPage;
 import page.GoogleMailEmailDetailsPage;
 import page.GoogleMailHomePage;
 import service.EmailCreator;
-import service.UserCreator;
+import service.ValidUserCreator;
 import util.AlertsGenerator;
+import util.CurrentUrlReader;
 
 public class GoogleMailSaveNewMailAsDraftAndDeleteTest extends CommonConditions {
 
     @Test(description = "Create new mail, save it as draft, and then delete it from Drafts folder")
     public void googleMailSaveMailAsDraftTest() {
 
-        User testUser = UserCreator.withValidCredentials();
+        User testUser = new ValidUserCreator().createUser();
         Email newEmail = EmailCreator.withAllFieldsFilled();
 
         GoogleMailHomePage homePage = new GoogleLoginPage(driver).loginToGoogleMail(testUser);
 
-//        Assert.assertEquals(driver.getCurrentUrl(), homePage.getHomepageUrl(), "Login failed");
-        Assert.assertEquals(homePage.getCurrentPageUrl(), homePage.getHomepageUrl(), "Login failed");
+        Assert.assertEquals(new CurrentUrlReader().getCurrentPageUrl(), homePage.getHomepageUrl(), "Login failed");
 
         GoogleMailCreateNewEmailPage createNewEmailPage = homePage.goToCreateNewEmail();
         createNewEmailPage.fillInEmailData(newEmail);
-        homePage = createNewEmailPage.closeNewEmail();
+        homePage = createNewEmailPage.closeEmailPopupWindow();
         GoogleMailDraftsPage draftsPage = homePage.openDraftsPage();
         GoogleMailEmailDetailsPage emailDetailsPage = draftsPage.openDraftEmail(newEmail.getEmailSubject());
 
@@ -43,7 +43,7 @@ public class GoogleMailSaveNewMailAsDraftAndDeleteTest extends CommonConditions 
         Assert.assertTrue(draftsPage.getNoDraftEmailsMessage().getText()
                         .contains("Нет сохраненных черновиков."), "Drafts folder is not empty!");
 
-        homePage.logoutGoogleAccount();
+        draftsPage.logoutGoogleAccount();
         new AlertsGenerator().generateTestPassAlert();
     }
 }

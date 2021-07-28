@@ -6,11 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class GoogleMailEmailDetailsPage extends AbstractGoogleMailPage {
-
-    private WebDriverWait wait = new WebDriverWait(driver, 10);
 
     @FindBy(xpath = "(//div[@title='Удалить'])[2]")
     private WebElement deleteEmailButton;
@@ -66,12 +63,6 @@ public class GoogleMailEmailDetailsPage extends AbstractGoogleMailPage {
         moveToInboxButton.click();
         log.info("Email moved to inbox");
         return new GoogleMailHomePage(driver);
-    }
-
-    public GoogleMailDraftsPage deleteDraftEmail() {
-        deleteDraftEmailButton.click();
-        log.info("Draft email deleted");
-        return new GoogleMailDraftsPage(driver);
     }
 
     public GoogleMailDraftsPage deleteDraftEmailWithHotKeys() {
