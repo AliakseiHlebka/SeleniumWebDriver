@@ -2,14 +2,12 @@ package cucumber.steps;
 
 import org.testng.Assert;
 
-import java.util.List;
-
-import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import driver.DriverSingleton;
 import model.Email;
+import model.EmailResource;
 import page.GoogleMailCreateNewEmailPage;
 import page.GoogleMailHomePage;
 
@@ -55,9 +53,8 @@ public class CreateEmailSteps {
     }
 
     @When("the user fills in email$")
-    public void fillInEmailData(DataTable dataTable) {
-        List<String> emailFields = dataTable.asList();
-        Email email = new Email(emailFields.get(0), emailFields.get(1), emailFields.get(2));
+    public void fillInEmailData(EmailResource emails) {
+        Email email = emails.getEmails().get(0);
         createNewEmailPage.fillInEmailData(email);
     }
 }

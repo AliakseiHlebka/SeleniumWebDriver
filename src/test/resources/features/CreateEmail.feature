@@ -1,6 +1,6 @@
 Feature: As a user I want to create an email in my Google Mail account
 
-  Background: User logs in, opens Create New Email popup and enters addressee
+  Background: User logs in and opens Create New Email popup
     Given there is a user with valid credentials
     When the user logs in to Google Mail account
     Then Home Page is opened
@@ -9,6 +9,7 @@ Feature: As a user I want to create an email in my Google Mail account
   @bdd
   Scenario: User creates an email and deletes it
     When the user fills in email
+      | ADDRESSEE           | SUBJECT              | BODY                                            |
       | al.hlebka@gmail.com | Hello from Cucumber  | Hi!\nThis is email body\nBest regards\nCucumber |
     And the user clicks Close New Email button
     And the user opens Drafts page
