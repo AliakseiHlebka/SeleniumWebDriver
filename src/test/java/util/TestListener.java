@@ -3,18 +3,22 @@ package util;
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import driver.DriverSingleton;
+import io.qameta.allure.Allure;
 
 public class TestListener implements ITestListener {
 
@@ -49,11 +53,15 @@ public class TestListener implements ITestListener {
         File screenCapture = ((TakesScreenshot) DriverSingleton
                 .getDriver())
                 .getScreenshotAs(OutputType.FILE);
+        byte[] screenshotForAllureReport = ((TakesScreenshot) DriverSingleton
+                .getDriver())
+                .getScreenshotAs(OutputType.BYTES);
         log.error("Error screenshot taken");
         try {
             FileUtils.copyFile(screenCapture, new File(
                     screenshotPathName
                     + getCurrentTime() + ".png"));
+            Allure.addAttachment("Screenshot", new ByteArrayInputStream(screenshotForAllureReport));
         } catch (IOException e) {
             log.error("Failed to save screenshot: " + e.getLocalizedMessage());
         }
